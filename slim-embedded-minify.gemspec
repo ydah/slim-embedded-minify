@@ -4,7 +4,7 @@ require_relative "lib/slim/embedded/minify/version"
 
 Gem::Specification.new do |spec|
   spec.name = "slim-embedded-minify"
-  spec.version = Slim::Embedded::Minify::VERSION
+  spec.version = SlimEmbeddedMinify::VERSION
   spec.authors = ["Yudai Takada"]
   spec.email = ["t.yudai92@gmail.com"]
 
