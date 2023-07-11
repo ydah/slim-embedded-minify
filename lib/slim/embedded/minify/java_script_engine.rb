@@ -23,7 +23,7 @@ module Slim
               multiline_comment = false if line.last.match?(%r{\*/})
               next false
             end
-            !line.last.match?(%r{\A//})
+            !line.last.match?(%r{//})
           else
             true
           end

@@ -20,6 +20,7 @@ p Hi
 javascript:
   // some comment
   $(function() {});
+    // some comment
 
 
   alert('hello')
