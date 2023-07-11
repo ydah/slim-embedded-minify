@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    slim-embedded-minify (0.1.0)
+    slim-embedded-minify (0.1.1)
+      slim (~> 5.1)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    execjs (2.8.1)
     json (2.6.3)
     language_server-protocol (3.17.0.3)
     minitest (5.18.1)
@@ -38,8 +38,6 @@ GEM
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
     temple (0.10.2)
-    terser (1.1.16)
-      execjs (>= 0.3.0, < 3)
     tilt (2.2.0)
     unicode-display_width (2.4.2)
 
@@ -50,9 +48,7 @@ DEPENDENCIES
   minitest (~> 5.15)
   rake (~> 13.0)
   rubocop (~> 1.21)
-  slim (~> 5.1)
   slim-embedded-minify!
-  terser (~> 1.1)
 
 BUNDLED WITH
    2.4.13
