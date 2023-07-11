@@ -1,5 +1,7 @@
-require 'minitest/autorun'
-require_relative '../lib/slim/embedded/minify'
+# frozen_string_literal: true
+
+require "minitest/autorun"
+require_relative "../lib/slim/embedded/minify"
 
 class TestSlim < Minitest::Test
   def render(source, options = {}, &block)

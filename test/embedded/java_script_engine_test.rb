@@ -1,20 +1,22 @@
-require_relative '../test_helper'
+# frozen_string_literal: true
+
+require_relative "../test_helper"
 
 class JavaScriptEngineTest < TestSlim
   def test_render_with_javascript
-    source = %q{
+    source = "
 javascript:
   $(function() {});
 
 
   alert('hello')
 p Hi
-}
+"
     assert_html %{<script>$(function() {});\n\n\nalert('hello')</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_and_comment
-    source = %q{
+    source = "
 javascript:
   // some comment
   $(function() {});
@@ -22,12 +24,12 @@ javascript:
 
   alert('hello')
 p Hi
-}
+"
     assert_html %{<script>\n$(function() {});\n\n\nalert('hello')</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_and_multiline_comment
-    source = %q{
+    source = "
 javascript:
   /*
     multiline
@@ -38,15 +40,15 @@ javascript:
 
   alert('hello')
 p Hi
-}
+"
     assert_html %{<script>\n$(function() {});\n\n\nalert('hello')</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_empty_attributes
-    source = %q{
+    source = "
 javascript ():
   alert('hello')
-}
+"
     assert_html %{<script>alert('hello')</script>}, source
   end
 
@@ -63,7 +65,8 @@ javascript [class = "myClass"]:
 javascript { class = "myClass" id="myId" other-attribute = 'my_other_attribute' }  :
   alert('hello')
 }
-    assert_html %{<script class=\"myClass\" id=\"myId\" other-attribute=\"my_other_attribute\">alert('hello')</script>}, source
+    assert_html %{<script class=\"myClass\" id=\"myId\" other-attribute=\"my_other_attribute\">alert('hello')</script>},
+                source
   end
 
   def test_render_with_javascript_with_tabs
@@ -77,7 +80,7 @@ javascript { class = "myClass" id="myId" other-attribute = 'my_other_attribute' 
 javascript:
   $(function() { #{func} });
 }
-    assert_html %q|<script>$(function() { alert(&#39;hello&#39;); });</script>|, source
+    assert_html "<script>$(function() { alert(&#39;hello&#39;); });</script>", source
   end
 
   def test_render_with_javascript_with_explicit_html_comment
