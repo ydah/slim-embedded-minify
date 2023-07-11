@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
+require "terser"
 require_relative "minify/version"
-
-module Slim
-  module Embedded
-    module Minify
-      class Error < StandardError; end
-      # Your code goes here...
-    end
-  end
-end
+require_relative "minify/java_script_engine"

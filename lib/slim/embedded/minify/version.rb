@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require "slim"
+
 module Slim
-  module Embedded
+  class Embedded < Filter
     module Minify
       VERSION = "0.1.0"
     end
