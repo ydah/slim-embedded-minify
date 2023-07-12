@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix deletion of lines when a line is not just a comment
+
 ## 0.1.2 - 2023-07-11
 
 - Fix to remove comments after the second line

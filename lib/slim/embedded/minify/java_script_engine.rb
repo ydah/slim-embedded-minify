@@ -14,19 +14,33 @@ module Slim
 
       def minify(body)
         multiline_comment = false
-        body.filter do |line|
+        body.map do |line|
           if line.instance_of?(Array) && line.first == :slim
-            if line.last.match?(%r{\A/\*})
+            remove_comments!(line)
+            remove_whitespace!(line)
+
+            if line.last.match?(%r{/\*})
               multiline_comment = true
-              next false
+              next
             elsif multiline_comment
               multiline_comment = false if line.last.match?(%r{\*/})
-              next false
+              next
             end
-            !line.last.match?(%r{//})
+            line
           else
-            true
+            line
           end
+        end.compact
+      end
+
+      def remove_comments!(line)
+        line.last.gsub!(/\/\*.*?\*\//, '')
+        line.last.gsub!(/\/\/.*$/, '')
+      end
+
+      def remove_whitespace!(line)
+        if line.last.gsub(/\n/, '').match?(/^\s*$/)
+          line.last.gsub!(/^\s*$/, '')
         end
       end
     end

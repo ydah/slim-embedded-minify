@@ -12,21 +12,20 @@ javascript:
   alert('hello')
 p Hi
 "
-    assert_html %{<script>$(function() {});\n\n\nalert('hello')</script><p>Hi</p>}, source
+    assert_html %{<script>$(function() {});\nalert('hello')</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_and_comment
     source = "
 javascript:
   // some comment
-  $(function() {});
+  $(function() {});// some comment
     // some comment
-
 
   alert('hello')
 p Hi
 "
-    assert_html %{<script>\n$(function() {});\n\n\nalert('hello')</script><p>Hi</p>}, source
+    assert_html %{<script>\n$(function() {});\nalert('hello')</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_and_multiline_comment
@@ -42,7 +41,20 @@ javascript:
   alert('hello')
 p Hi
 "
-    assert_html %{<script>\n$(function() {});\n\n\nalert('hello')</script><p>Hi</p>}, source
+    assert_html %{<script>\n$(function() {});\nalert('hello')</script><p>Hi</p>}, source
+  end
+
+  def test_render_with_javascript_and_singleline_comment
+    source = "
+javascript:
+  /* comment */
+  $(function() {});
+
+
+  /* comment */alert('hello')/* comment */
+p Hi
+"
+    assert_html %{<script>\n$(function() {});\nalert('hello')</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_empty_attributes
