@@ -1,0 +1,26 @@
+name: minitest
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - "2.7"
+          - "3.0"
+          - "3.1"
+          - "3.2"
+          - ruby-head
+          - jruby-9.4
+    name: "Ruby ${{ matrix.ruby }}: minitest"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "${{ matrix.ruby }}"
+          bundler-cache: true
+      - run: bundle exec rake test
