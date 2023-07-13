@@ -1,5 +1,7 @@
 # SlimEmbeddedMinify
 
+[![Gem Version](https://badge.fury.io/rb/slim-embedded-minify.svg)](https://badge.fury.io/rb/slim-embedded-minify)
+
 A slim file to minify embedded code.
 
 ## Installation
