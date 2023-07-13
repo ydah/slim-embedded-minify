@@ -51,7 +51,7 @@ javascript:
   $(function() {});
 
 
-  /* comment */alert("/* argument */")/* comment */
+  /* comment */alert("/* argument */")/*comment*/
 p Hi
 '
     assert_html %{<script>\n$(function() {});\nalert(\"/* argument */\")</script><p>Hi</p>}, source

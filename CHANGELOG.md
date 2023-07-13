@@ -1,5 +1,9 @@
 ## Unreleased
 
+- Add support for css minify.
+
+## 0.1.3 - 2023-07-12
+
 - Fix to disregard comments if enclosed in quotation marks.
 - Fix deletion of lines when a line is not just a comment.
 

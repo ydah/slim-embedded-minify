@@ -4,3 +4,4 @@ require "slim"
 
 require_relative "minify/version"
 require_relative "minify/java_script_engine"
+require_relative "minify/tag_engine"
