@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.2.0 - 2023-07-13
+
 - Add support for css minify.
 
 ## 0.1.3 - 2023-07-12
