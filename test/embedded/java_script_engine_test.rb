@@ -22,10 +22,10 @@ javascript:
   $(function() {});// some comment
     // some comment
 
-  alert('hello')
+  alert('// argument')
 p Hi
 "
-    assert_html %{<script>\n$(function() {});\nalert('hello')</script><p>Hi</p>}, source
+    assert_html %{<script>\n$(function() {});\nalert('// argument')</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_and_multiline_comment
@@ -45,16 +45,16 @@ p Hi
   end
 
   def test_render_with_javascript_and_singleline_comment
-    source = "
+    source = '
 javascript:
   /* comment */
   $(function() {});
 
 
-  /* comment */alert('hello')/* comment */
+  /* comment */alert("/* argument */")/* comment */
 p Hi
-"
-    assert_html %{<script>\n$(function() {});\nalert('hello')</script><p>Hi</p>}, source
+'
+    assert_html %{<script>\n$(function() {});\nalert(\"/* argument */\")</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_empty_attributes

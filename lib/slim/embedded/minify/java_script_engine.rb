@@ -19,11 +19,12 @@ module Slim
             remove_comments!(line)
             remove_whitespace!(line)
 
-            if line.last.match?(%r{/\*})
+            stripped_quotes = stripped_quotes(line)
+            if stripped_quotes.match?(%r{/\*})
               multiline_comment = true
               next
             elsif multiline_comment
-              multiline_comment = false if line.last.match?(%r{\*/})
+              multiline_comment = false if stripped_quotes.match?(%r{\*/})
               next
             end
             line
@@ -34,14 +35,18 @@ module Slim
       end
 
       def remove_comments!(line)
-        line.last.gsub!(/\/\*.*?\*\//, '')
-        line.last.gsub!(/\/\/.*$/, '')
+        line.last.gsub!(/((?<!['"])\/\*[^*\/]*\*\/?(?<!['"]))/, '')
+        line.last.gsub!(/((?<!['"])\/\/.*[^'"]+)/, '')
       end
 
       def remove_whitespace!(line)
         if line.last.gsub(/\n/, '').match?(/^\s*$/)
           line.last.gsub!(/^\s*$/, '')
         end
+      end
+
+      def stripped_quotes(line)
+        line.last.gsub(/(['"]).*?\1/, '')
       end
     end
   end
