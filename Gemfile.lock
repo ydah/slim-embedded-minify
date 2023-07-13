@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slim-embedded-minify (0.1.2)
+    slim-embedded-minify (0.1.3)
       slim (~> 5.1)
 
 GEM
