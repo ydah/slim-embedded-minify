@@ -3,5 +3,18 @@
 require "slim"
 
 require_relative "minify/version"
-require_relative "minify/java_script_engine"
-require_relative "minify/tag_engine"
+
+require_relative "minify/tag"
+require_relative "minify/javascript"
+
+module Slim
+  class Embedded < Filter
+    class TagEngine < Engine
+      prepend Minify::Tag
+    end
+
+    class JavaScriptEngine < TagEngine
+      prepend Minify::Javascript
+    end
+  end
+end

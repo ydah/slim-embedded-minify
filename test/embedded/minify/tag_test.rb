@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "../test_helper"
+require_relative "../../test_helper"
 
-class TagEngineTest < TestSlim
+class TagTest < TestSlim
   def test_render_with_css
     source = %q{
 css:

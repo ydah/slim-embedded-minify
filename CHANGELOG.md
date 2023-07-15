@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Refactor code.
+
 ## 0.2.0 - 2023-07-13
 
 - Add support for css minify.
