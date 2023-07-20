@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.2.2 - 2023-07-20
+
 - Fix an invalid remove comment.
 
 ## 0.2.1 - 2023-07-18
