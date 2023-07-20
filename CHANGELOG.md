@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix an invalid remove comment.
+
 ## 0.2.1 - 2023-07-18
 
 - Refactor code.

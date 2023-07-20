@@ -20,7 +20,8 @@ p Hi
 javascript:
   // some comment
   $(function() {});// some comment
-    // some comment
+    // "" or ''
+      // '' or ""
 
   alert('// argument')
 p Hi
@@ -49,12 +50,13 @@ p Hi
 javascript:
   /* comment */
   $(function() {});
+    /* ... * comment / */
 
-
+  /* ... * comment / */alert("/* argument */")/*... * comment /*/
   /* comment */alert("/* argument */")/*comment*/
 p Hi
 '
-    assert_html %{<script>\n$(function() {});\nalert(\"/* argument */\")</script><p>Hi</p>}, source
+    assert_html %{<script>\n$(function() {});\nalert(\"/* argument */\")\nalert(\"/* argument */\")</script><p>Hi</p>}, source
   end
 
   def test_render_with_javascript_empty_attributes

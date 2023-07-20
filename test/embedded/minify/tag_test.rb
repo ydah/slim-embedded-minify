@@ -40,7 +40,7 @@ css class="myClass" scoped = "true" :
 css:
   /* comment */
   h1 {
-    /* comment */font-family: "/*foo*/", '/*bar*/';/* comment */
+    /* comment * / */font-family: "/*foo*/", '/*bar*/';/** /comment */
     color: blue;
     /* comment */
   }

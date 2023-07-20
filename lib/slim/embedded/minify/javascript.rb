@@ -14,8 +14,8 @@ module Slim
         private
 
         def remove_comments!(line)
-          line.last.gsub!(/((?<!['"])\/\*[^*\/]*\*\/?(?<!['"]))/, '')
-          line.last.gsub!(/((?<!['"])\/\/.*[^'"]+)/, '')
+          line.last.gsub!(/((?<!['"])\/\*.*?\*\/(?<!['"]))/, '')
+          line.last.gsub!(/((?<!['"])\/\/.*)/, '')
         end
       end
     end

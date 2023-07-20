@@ -34,7 +34,7 @@ module Slim
         end
 
         def remove_comments!(line)
-          line.last.gsub!(/((?<!['"])\/\*[^*\/]*\*\/?(?<!['"]))/, '')
+          line.last.gsub!(/((?<!['"])\/\*.*?\*\/(?<!['"]))/, '')
         end
 
         def remove_whitespace!(line)
