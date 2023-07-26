@@ -4,125 +4,193 @@ require_relative "../../test_helper"
 
 class JavascriptTest < TestSlim
   def test_render_with_javascript
-    source = "
-javascript:
-  $(function() {});
+    source = <<~SLIM
+      javascript:
+        $(function() {});
 
 
-  alert('hello')
-p Hi
-"
-    assert_html %{<script>$(function() {});\nalert('hello')</script><p>Hi</p>}, source
+        alert('hello')
+      p Hi
+    SLIM
+    assert_html <<~HTML.chomp, source
+      <script>$(function() {});
+      alert('hello')</script><p>Hi</p>
+    HTML
   end
 
   def test_render_with_javascript_and_comment
-    source = "
-javascript:
-  // some comment
-  $(function() {});// some comment
-    // "" or ''
-      // '' or ""
+    source = <<~SLIM
+      javascript:
+        // some comment
+        $(function() {});// some comment
+          // "" or ''
+            // '' or ""
 
-  alert('// argument')
-p Hi
-"
-    assert_html %{<script>\n$(function() {});\nalert('// argument')</script><p>Hi</p>}, source
+        alert('// argument')
+      p Hi
+    SLIM
+    assert_html <<~HTML.chomp, source
+      <script>
+      $(function() {});
+      alert('// argument')</script><p>Hi</p>
+    HTML
   end
 
   def test_render_with_javascript_and_multiline_comment
-    source = "
-javascript:
-  /*
-    multiline
-    comment
-  */
-  $(function() {});
+    source = <<~SLIM
+      javascript:
+        /*
+          multiline
+          comment
+        */
+        $(function() {});
 
 
-  alert('hello')
-p Hi
-"
-    assert_html %{<script>\n$(function() {});\nalert('hello')</script><p>Hi</p>}, source
+        alert('hello')
+      p Hi
+    SLIM
+    assert_html <<~HTML.chomp, source
+      <script>
+      $(function() {});
+      alert('hello')</script><p>Hi</p>
+    HTML
   end
 
   def test_render_with_javascript_and_singleline_comment
-    source = '
-javascript:
-  /* comment */
-  $(function() {});
-    /* ... * comment / */
+    source = <<~SLIM
+      javascript:
+        /* comment */
+        $(function() {});
+          /* ... * comment / */
 
-  /* ... * comment / */alert("/* argument */")/*... * comment /*/
-  /* comment */alert("/* argument */")/*comment*/
-p Hi
-'
-    assert_html %{<script>\n$(function() {});\nalert(\"/* argument */\")\nalert(\"/* argument */\")</script><p>Hi</p>}, source
+        /* ... * comment / */alert("/* argument */")/*... * comment /*/
+        /* comment */alert("/* argument */")/*comment*/
+      p Hi
+    SLIM
+    assert_html <<~HTML.chomp, source
+      <script>
+      $(function() {});
+      alert("/* argument */")
+      alert("/* argument */")</script><p>Hi</p>
+    HTML
   end
 
   def test_render_with_javascript_empty_attributes
-    source = "
-javascript ():
-  alert('hello')
-"
+    source = <<~SLIM
+      javascript ():
+        alert('hello')
+    SLIM
     assert_html %{<script>alert('hello')</script>}, source
   end
 
   def test_render_with_javascript_attribute
-    source = %q{
-javascript [class = "myClass"]:
-  alert('hello')
-}
-    assert_html %{<script class=\"myClass\">alert('hello')</script>}, source
+    source = <<~SLIM
+      javascript [class = "myClass"]:
+        alert('hello')
+    SLIM
+    assert_html %{<script class="myClass">alert('hello')</script>}, source
   end
 
   def test_render_with_javascript_multiple_attributes
-    source = %q{
-javascript { class = "myClass" id="myId" other-attribute = 'my_other_attribute' }  :
-  alert('hello')
-}
-    assert_html %{<script class=\"myClass\" id=\"myId\" other-attribute=\"my_other_attribute\">alert('hello')</script>},
+    source = <<~SLIM
+      javascript { class = "myClass" id="myId" other-attribute = 'my_other_attribute' }  :
+        alert('hello')
+    SLIM
+    assert_html %{<script class="myClass" id="myId" other-attribute="my_other_attribute">alert('hello')</script>},
                 source
   end
 
   def test_render_with_javascript_with_tabs
-    source = "javascript:\n\t$(function() {});\n\talert('hello')\np Hi"
-    assert_html "<script>$(function() {});\nalert('hello')</script><p>Hi</p>", source
+    source = <<~SLIM
+      javascript:
+      \t$(function() {});
+      \talert('hello')
+      p Hi
+    SLIM
+    assert_html <<~HTML.chomp, source
+      <script>$(function() {});
+      alert('hello')</script><p>Hi</p>
+    HTML
   end
 
   def test_render_with_javascript_including_variable
-    source = %q{
-- func = "alert('hello');"
-javascript:
-  $(function() { #{func} });
-}
+    source = <<~'SLIM'
+      - func = "alert('hello');"
+      javascript:
+        $(function() { #{func} });
+    SLIM
     assert_html "<script>$(function() { alert(&#39;hello&#39;); });</script>", source
   end
 
   def test_render_with_javascript_with_explicit_html_comment
     Slim::Engine.with_options(js_wrapper: :comment) do
-      source = "javascript:\n\t$(function() {});\n\talert('hello')\np Hi"
-      assert_html "<script><!--\n$(function() {});\nalert('hello')\n//--></script><p>Hi</p>", source
+      source = <<~SLIM
+        javascript:
+        \t$(function() {});
+        \talert('hello')
+        p Hi
+      SLIM
+      assert_html <<~HTML.chomp, source
+        <script><!--
+        $(function() {});
+        alert('hello')
+        //--></script><p>Hi</p>
+      HTML
     end
   end
 
   def test_render_with_javascript_with_explicit_cdata_comment
     Slim::Engine.with_options(js_wrapper: :cdata) do
-      source = "javascript:\n\t$(function() {});\n\talert('hello')\np Hi"
-      assert_html "<script>\n//<![CDATA[\n$(function() {});\nalert('hello')\n//]]>\n</script><p>Hi</p>", source
+      source = <<~SLIM
+        javascript:
+        \t$(function() {});
+        \talert('hello')
+        p Hi
+      SLIM
+      assert_html <<~HTML.chomp, source
+        <script>
+        //<![CDATA[
+        $(function() {});
+        alert('hello')
+        //]]>
+        </script><p>Hi</p>
+      HTML
     end
   end
 
   def test_render_with_javascript_with_format_xhtml_comment
     Slim::Engine.with_options(js_wrapper: :guess, format: :xhtml) do
-      source = "javascript:\n\t$(function() {});\n\talert('hello')\np Hi"
-      assert_html "<script>\n//<![CDATA[\n$(function() {});\nalert('hello')\n//]]>\n</script><p>Hi</p>", source
+      source = <<~SLIM
+        javascript:
+        \t$(function() {});
+        \talert('hello')
+        p Hi
+      SLIM
+      assert_html <<~HTML.chomp, source
+        <script>
+        //<![CDATA[
+        $(function() {});
+        alert('hello')
+        //]]>
+        </script><p>Hi</p>
+      HTML
     end
   end
 
   def test_render_with_javascript_with_format_html_comment
     Slim::Engine.with_options(js_wrapper: :guess, format: :html) do
-      source = "javascript:\n\t$(function() {});\n\talert('hello')\np Hi"
-      assert_html "<script><!--\n$(function() {});\nalert('hello')\n//--></script><p>Hi</p>", source
+      source = <<~SLIM
+        javascript:
+        \t$(function() {});
+        \talert('hello')
+        p Hi
+      SLIM
+      assert_html <<~HTML.chomp, source
+        <script><!--
+        $(function() {});
+        alert('hello')
+        //--></script><p>Hi</p>
+      HTML
     end
   end
 end
