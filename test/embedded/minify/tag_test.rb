@@ -62,17 +62,15 @@ class TagTest < TestSlim
           comment
         */
         h1 {
-          color: blue;
-          /*
-            multiline
-            comment
-          */
+          color: blue;/* multiline
+          comment */  font-size: 12px;
         }
     SLIM
     assert_html <<~HTML.chomp, source
       <style>
       h1 {
         color: blue;
+        font-size: 12px;
       }</style>
     HTML
   end
