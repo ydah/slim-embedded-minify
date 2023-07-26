@@ -24,7 +24,7 @@ class TagTest < TestSlim
       css scoped = "true":
         h1 { color: blue }
     SLIM
-    assert_html "<style scoped=\"true\">h1 { color: blue }</style>", source
+    assert_html %{<style scoped="true">h1 { color: blue }</style>}, source
   end
 
   def test_render_with_css_multiple_attributes
@@ -32,7 +32,7 @@ class TagTest < TestSlim
       css class="myClass" scoped = "true" :
         h1 { color: blue }
     SLIM
-    assert_html "<style class=\"myClass\" scoped=\"true\">h1 { color: blue }</style>", source
+    assert_html %{<style class="myClass" scoped="true">h1 { color: blue }</style>}, source
   end
 
   def test_render_with_css_and_comment
@@ -48,7 +48,7 @@ class TagTest < TestSlim
     assert_html <<~HTML.chomp, source
       <style>
       h1 {
-        font-family: \"/*foo*/\", '/*bar*/';
+        font-family: "/*foo*/", '/*bar*/';
         color: blue;
       }</style>
     HTML

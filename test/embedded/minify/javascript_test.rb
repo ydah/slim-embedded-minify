@@ -70,8 +70,8 @@ class JavascriptTest < TestSlim
     assert_html <<~HTML.chomp, source
       <script>
       $(function() {});
-      alert(\"/* argument */\")
-      alert(\"/* argument */\")</script><p>Hi</p>
+      alert("/* argument */")
+      alert("/* argument */")</script><p>Hi</p>
     HTML
   end
 
@@ -88,7 +88,7 @@ class JavascriptTest < TestSlim
       javascript [class = "myClass"]:
         alert('hello')
     SLIM
-    assert_html %{<script class=\"myClass\">alert('hello')</script>}, source
+    assert_html %{<script class="myClass">alert('hello')</script>}, source
   end
 
   def test_render_with_javascript_multiple_attributes
@@ -96,7 +96,7 @@ class JavascriptTest < TestSlim
       javascript { class = "myClass" id="myId" other-attribute = 'my_other_attribute' }  :
         alert('hello')
     SLIM
-    assert_html %{<script class=\"myClass\" id=\"myId\" other-attribute=\"my_other_attribute\">alert('hello')</script>},
+    assert_html %{<script class="myClass" id="myId" other-attribute="my_other_attribute">alert('hello')</script>},
                 source
   end
 
