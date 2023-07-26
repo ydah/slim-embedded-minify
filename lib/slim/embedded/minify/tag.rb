@@ -21,15 +21,16 @@ module Slim
               stripped_quotes = stripped_quotes(line)
               if stripped_quotes.match?(%r{/\*})
                 multiline_comment = true
-                next
+                line.last.gsub!(/\/\*.*$/, '')
               elsif multiline_comment
-                multiline_comment = false if stripped_quotes.match?(%r{\*/})
-                next
+                next unless stripped_quotes.match?(%r{\*/})
+
+                multiline_comment = false
+                line.last.gsub!(/.*\*\//, '')
               end
-              line
-            else
-              line
+              next if empty_line?(line)
             end
+            line
           end.compact
         end
 
@@ -45,6 +46,10 @@ module Slim
 
         def stripped_quotes(line)
           line.last.gsub(/(['"]).*?\1/, '')
+        end
+
+        def empty_line?(line)
+          line.last.gsub(/[\n\s]/, '').empty?
         end
       end
     end

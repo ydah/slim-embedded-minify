@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix to not removing line when a block comment if it starts at the end of a line.
+
 ## 0.2.2 - 2023-07-20
 
 - Fix an invalid remove comment.

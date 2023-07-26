@@ -43,15 +43,15 @@ class JavascriptTest < TestSlim
           multiline
           comment
         */
-        $(function() {});
+        $(function() {})/* comment
 
 
-        alert('hello')
+        comment */alert('hello')
       p Hi
     SLIM
     assert_html <<~HTML.chomp, source
       <script>
-      $(function() {});
+      $(function() {})
       alert('hello')</script><p>Hi</p>
     HTML
   end
