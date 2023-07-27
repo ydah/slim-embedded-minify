@@ -1,8 +1,12 @@
 ## Unreleased
 
+## 0.2.5 - 2023-07-27
+
+Fix to not delete anything other than comments.
+
 ## 0.2.4 - 2023-07-27
 
-- Fix deletion of strings when `/*` is present in the string
+- Fix deletion of strings when `/*` is present in the string.
 
 ## 0.2.3 - 2023-07-27
 
