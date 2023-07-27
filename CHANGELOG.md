@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix deletion of strings when `/*` is present in the string
+
 ## 0.2.3 - 2023-07-27
 
 - Fix to not removing line when a block comment if it starts at the end of a line.

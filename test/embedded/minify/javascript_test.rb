@@ -65,13 +65,16 @@ class JavascriptTest < TestSlim
 
         /* ... * comment / */alert("/* argument */")/*... * comment /*/
         /* comment */alert("/* argument */")/*comment*/
+        /* comment */alert("/* argument")/* comment
+        comment */
       p Hi
     SLIM
     assert_html <<~HTML.chomp, source
       <script>
       $(function() {});
       alert("/* argument */")
-      alert("/* argument */")</script><p>Hi</p>
+      alert("/* argument */")
+      alert("/* argument")</script><p>Hi</p>
     HTML
   end
 

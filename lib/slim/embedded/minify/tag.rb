@@ -21,12 +21,12 @@ module Slim
               stripped_quotes = stripped_quotes(line)
               if stripped_quotes.match?(%r{/\*})
                 multiline_comment = true
-                line.last.gsub!(/\/\*.*$/, '')
+                line.last.sub!(/(?<!['"])\/\*.*$/, '')
               elsif multiline_comment
                 next unless stripped_quotes.match?(%r{\*/})
 
                 multiline_comment = false
-                line.last.gsub!(/.*\*\//, '')
+                line.last.sub!(/.*\*\/(?<!['"])/, '')
               end
               next if empty_line?(line)
             end
