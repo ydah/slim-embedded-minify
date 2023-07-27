@@ -13,45 +13,42 @@ module Slim
 
         def minify(body)
           multiline_comment = false
-          body.map do |line|
+          body.filter_map do |line|
             if line.instance_of?(Array) && line.first == :slim
               remove_comments!(line)
               next if line.last.nil?
 
               remove_whitespace!(line)
               stripped_quotes = stripped_quotes(line)
-              if stripped_quotes.match?(%r{/\*}) && !multiline_comment
+              if stripped_quotes.include?("/*") && !multiline_comment
                 multiline_comment = true
-                line[-1] = line.last.reverse.sub(/.*?\*\//, '').reverse
+                line[-1] = line.last.reverse.sub(%r{.*?\*/}, "").reverse
               elsif multiline_comment
-                next unless stripped_quotes.match?(%r{\*/})
+                next unless stripped_quotes.include?("*/")
 
                 multiline_comment = false
-                line.last.sub!(/.*\*\/(?<!['"])/, '')
+                line.last.sub!(%r{.*\*/(?<!['"])}, "")
               end
-              if stripped_quotes.match?(%r{/\*}) && !multiline_comment
+              if stripped_quotes.include?("/*") && !multiline_comment
                 multiline_comment = true
-                line[-1] = line.last.reverse.sub(/.*?\*\//, '').reverse
+                line[-1] = line.last.reverse.sub(%r{.*?\*/}, "").reverse
               end
               next if empty_line?(line)
             end
             line
-          end.compact
-        end
-
-        def minify_multiple_comments!(line)
+          end
         end
 
         def remove_comments!(line)
           need_deletion = false
           inside_char = nil
           line[-1] = line.last.chars.each_with_index.map do |char, index|
-            if char == '/' && next_char(line, index) == '*' && inside_char.nil?
-              if remaining_string_range(line, index).match?(/\*\//)
+            if char == "/" && next_char(line, index) == "*" && inside_char.nil?
+              if remaining_string_range(line, index).include?("*/")
                 need_deletion = true
                 next
               end
-            elsif char == '/' && prev_char(line, index) == '*' && inside_char.nil? && need_deletion
+            elsif char == "/" && prev_char(line, index) == "*" && inside_char.nil? && need_deletion
               need_deletion = false
               next
             elsif char == '"' && !need_deletion
@@ -74,7 +71,7 @@ module Slim
         end
 
         def remaining_string_range(line, index)
-          line.last[index..-1]
+          line.last[index..]
         end
 
         def prev_char(line, index)
@@ -86,17 +83,17 @@ module Slim
         end
 
         def remove_whitespace!(line)
-          if line.last.gsub(/\n/, '').match?(/^\s*$/)
-            line.last.gsub!(/^\s*$/, '')
-          end
+          return unless line.last.delete("\n").match?(/^\s*$/)
+
+          line.last.gsub!(/^\s*$/, "")
         end
 
         def stripped_quotes(line)
-          line.last.gsub(/(['"]).*?\1/, '')
+          line.last.gsub(/(['"]).*?\1/, "")
         end
 
         def empty_line?(line)
-          line.last.gsub(/[\n\s]/, '').empty?
+          line.last.gsub(/[\n\s]/, "").empty?
         end
       end
     end

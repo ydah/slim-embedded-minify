@@ -27,5 +27,6 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.add_runtime_dependency 'slim', '~> 5.1'
+  spec.add_runtime_dependency "slim", "~> 5.1"
+  spec.metadata["rubygems_mfa_required"] = "true"
 end

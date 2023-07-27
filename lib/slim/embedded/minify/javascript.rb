@@ -10,6 +10,7 @@ module Slim
           minified_body = minify(body)
           super(engine, minified_body, attrs)
         end
+
         def remove_comments!(line)
           need_deletion = false
           need_deletion_all = false
@@ -17,15 +18,15 @@ module Slim
           line[-1] = line.last.chars.each_with_index.map do |char, index|
             next if need_deletion_all
 
-            if char == '/' && next_char(line, index) == '*' && inside_char.nil?
-              if remaining_string_range(line, index).match?(/\*\//)
+            if char == "/" && next_char(line, index) == "*" && inside_char.nil?
+              if remaining_string_range(line, index).include?("*/")
                 need_deletion = true
                 next
               end
-            elsif char == '/' && prev_char(line, index) == '*' && inside_char.nil? && need_deletion
+            elsif char == "/" && prev_char(line, index) == "*" && inside_char.nil? && need_deletion
               need_deletion = false
               next
-            elsif char == '/' && next_char(line, index) == '/' && inside_char.nil? && !need_deletion
+            elsif char == "/" && next_char(line, index) == "/" && inside_char.nil? && !need_deletion
               need_deletion_all = true
               next
             elsif char == '"' && !need_deletion
