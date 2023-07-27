@@ -47,12 +47,15 @@ class JavascriptTest < TestSlim
 
 
         comment */alert('hello')
+        /* comment */alert("argument /* argument")/* comment
+        comment */
       p Hi
     SLIM
     assert_html <<~HTML.chomp, source
       <script>
       $(function() {})
-      alert('hello')</script><p>Hi</p>
+      alert('hello')
+      alert("argument /* argument")</script><p>Hi</p>
     HTML
   end
 
@@ -63,18 +66,17 @@ class JavascriptTest < TestSlim
         $(function() {});
           /* ... * comment / */
 
+        /* comment */"/* string */"/* comment */
         /* ... * comment / */alert("/* argument */")/*... * comment /*/
         /* comment */alert("/* argument */")/*comment*/
-        /* comment */alert("/* argument")/* comment
-        comment */
       p Hi
     SLIM
     assert_html <<~HTML.chomp, source
       <script>
       $(function() {});
+      "/* string */"
       alert("/* argument */")
-      alert("/* argument */")
-      alert("/* argument")</script><p>Hi</p>
+      alert("/* argument */")</script><p>Hi</p>
     HTML
   end
 
