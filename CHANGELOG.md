@@ -2,7 +2,7 @@
 
 ## 0.2.5 - 2023-07-27
 
-Fix to not delete anything other than comments.
+- Fix to not delete anything other than comments.
 
 ## 0.2.4 - 2023-07-27
 
