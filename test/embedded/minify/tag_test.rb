@@ -36,7 +36,7 @@ class TagTest < TestSlim
   end
 
   def test_render_with_css_and_comment
-    source = <<~SLIM
+    source = <<~'SLIM'
       css:
         /* comment */
         h1 {
@@ -44,13 +44,37 @@ class TagTest < TestSlim
           color: blue;
           /* comment */
         }
+        h2 {/* comment */font-family: "\\"/* comment */}/* comment */
     SLIM
-    assert_html <<~HTML.chomp, source
+    assert_html <<~'HTML'.chomp, source
       <style>
       h1 {
         font-family: "/*foo*/", '/*bar*/';
         color: blue;
-      }</style>
+      }
+      h2 {font-family: "\\"}</style>
+    HTML
+  end
+
+  def test_render_with_css_and_string_single_quotes
+    source = <<~'SLIM'
+      css:
+        h1 { font-size: '\'/* string */\'' }
+    SLIM
+
+    assert_html <<~'HTML'.chomp, source
+      <style>h1 { font-size: '\'/* string */\'' }</style>
+    HTML
+  end
+
+  def test_render_with_css_and_string_double_quotes
+    source = <<~'SLIM'
+      css:
+        h1 { font-size: "\"/* string */\"" }
+    SLIM
+
+    assert_html <<~'HTML'.chomp, source
+      <style>h1 { font-size: "\"/* string */\"" }</style>
     HTML
   end
 
