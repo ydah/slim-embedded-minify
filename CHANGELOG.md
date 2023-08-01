@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.2.7 - 2023-08-01
+
 - Fix incorrect removing when using escaped quotation for css.
 
 ## 0.2.6 - 2023-08-01
