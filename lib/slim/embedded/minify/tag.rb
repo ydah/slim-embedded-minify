@@ -75,7 +75,7 @@ module Slim
         end
 
         def prev_char(line, index)
-          line.last[index - 1] if index > 0
+          line.last[index - 1] if index.positive?
         end
 
         def next_char(line, index)
@@ -92,7 +92,7 @@ module Slim
           inside_char = nil
           escaped = false
           escaped_backslash = false
-          line.last.chars.each_with_index.map do |char, index|
+          line.last.chars.each_with_index.filter_map do |char, index|
             if ["'", '"'].include?(char) && inside_char.nil?
               inside_char = char
               next
@@ -100,13 +100,14 @@ module Slim
               escaped_backslash = true
               next
             elsif char == "\\"
-              if ["'", '"'].include?(next_char(line, index)) && inside_char == next_char(line, index)
-                escaped = true unless escaped_backslash
+              if ["'",
+                  '"'].include?(next_char(line, index)) && inside_char == next_char(line, index) && !escaped_backslash
+                escaped = true
               end
               escaped_backslash = false
               next
             elsif char == inside_char && !inside_char.nil?
-              inside_char = nil if !escaped
+              inside_char = nil unless escaped
               escaped = false
               next
             elsif inside_char
@@ -114,7 +115,7 @@ module Slim
             else
               char
             end
-          end.compact.join
+          end.join
         end
 
         def empty_line?(line)

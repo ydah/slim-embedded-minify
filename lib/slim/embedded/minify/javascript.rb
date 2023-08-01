@@ -35,8 +35,8 @@ module Slim
               escaped_backslash = true
               next char
             elsif char == "\\"
-              if ["'", '"'].include?(next_char(line, index)) && inside_char == next_char(line, index)
-                escaped = true unless escaped_backslash
+              if ["'", '"'].include?(next_char(line, index)) && inside_char == next_char(line, index) && !escaped_backslash
+                escaped = true
               end
               escaped_backslash = false
               next char
