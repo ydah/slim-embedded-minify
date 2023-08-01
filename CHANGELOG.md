@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.2.6 - 2023-08-01
+
 - Fix incorrect removing when using escaped quotation.
 
 ## 0.2.5 - 2023-07-27
