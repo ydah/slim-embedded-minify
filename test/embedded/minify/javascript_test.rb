@@ -60,7 +60,7 @@ class JavascriptTest < TestSlim
   end
 
   def test_render_with_javascript_and_singleline_comment
-    source = <<~SLIM
+    source = <<~'SLIM'
       javascript:
         /* comment */
         $(function() {});
@@ -69,14 +69,40 @@ class JavascriptTest < TestSlim
         /* comment */"/* string */"/* comment */
         /* ... * comment / */alert("/* argument */")/*... * comment /*/
         /* comment */alert("/* argument */")/*comment*/
+        /* comment */console.log(/* comment */"\\"/* comment */)/* comment */
       p Hi
     SLIM
-    assert_html <<~HTML.chomp, source
+    assert_html <<~'HTML'.chomp, source
       <script>
       $(function() {});
       "/* string */"
       alert("/* argument */")
-      alert("/* argument */")</script><p>Hi</p>
+      alert("/* argument */")
+      console.log("\\")</script><p>Hi</p>
+    HTML
+  end
+
+  def test_render_with_javascript_and_string_single_quotes
+    source = <<~'SLIM'
+      javascript:
+        '\'/* string */\''
+      p Hi
+    SLIM
+
+    assert_html <<~'HTML'.chomp, source
+      <script>'\'/* string */\''</script><p>Hi</p>
+    HTML
+  end
+
+  def test_render_with_javascript_and_string_double_quotes
+    source = <<~'SLIM'
+      javascript:
+        "\"/* string */\""
+      p Hi
+    SLIM
+
+    assert_html <<~'HTML'.chomp, source
+      <script>"\"/* string */\""</script><p>Hi</p>
     HTML
   end
 

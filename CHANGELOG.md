@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix incorrect removing when using escaped quotation.
+
 ## 0.2.5 - 2023-07-27
 
 - Fix to not delete anything other than comments.

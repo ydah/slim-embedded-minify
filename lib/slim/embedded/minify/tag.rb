@@ -75,7 +75,7 @@ module Slim
         end
 
         def prev_char(line, index)
-          line.last[index - 1]
+          line.last[index - 1] if index > 0
         end
 
         def next_char(line, index)
@@ -89,7 +89,32 @@ module Slim
         end
 
         def stripped_quotes(line)
-          line.last.gsub(/(['"]).*?\1/, "")
+          inside_char = nil
+          escaped = false
+          escaped_backslash = false
+          line.last.chars.each_with_index.map do |char, index|
+            if ["'", '"'].include?(char) && inside_char.nil?
+              inside_char = char
+              next
+            elsif char == "\\" && next_char(line, index) == "\\" && inside_char
+              escaped_backslash = true
+              next
+            elsif char == "\\"
+              if ["'", '"'].include?(next_char(line, index)) && inside_char == next_char(line, index)
+                escaped = true unless escaped_backslash
+              end
+              escaped_backslash = false
+              next
+            elsif char == inside_char && !inside_char.nil?
+              inside_char = nil if !escaped
+              escaped = false
+              next
+            elsif inside_char
+              next
+            else
+              char
+            end
+          end.compact.join
         end
 
         def empty_line?(line)
