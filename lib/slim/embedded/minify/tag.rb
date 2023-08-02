@@ -3,6 +3,7 @@
 module Slim
   class Embedded < Filter
     module Minify
+      # Minify embedded tag code in Slim templates.
       module Tag
         def on_slim_embedded(engine, body, attrs)
           body = minify(body) if engine == :css

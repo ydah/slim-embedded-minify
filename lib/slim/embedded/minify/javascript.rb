@@ -3,6 +3,7 @@
 module Slim
   class Embedded < Filter
     module Minify
+      # Minify embedded Javascript code in Slim templates.
       module Javascript
         include Tag
 
@@ -10,6 +11,8 @@ module Slim
           minified_body = minify(body)
           super(engine, minified_body, attrs)
         end
+
+        private
 
         def remove_comments!(line)
           need_deletion = false
