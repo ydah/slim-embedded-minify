@@ -6,7 +6,7 @@ A slim file to minify embedded code.
 
 ## Overview
 
-Remove comments and unnecessary blank lines in the css or javascript embedding of your Slim files when embedding them in HTML.
+Remove comments and unnecessary blank lines in the [css or javascript embedding](https://github.com/slim-template/slim#embedded-engines-markdown-) of your Slim files when embedding them in HTML.
 
 ### Example
 
