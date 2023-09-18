@@ -4,17 +4,100 @@
 
 A slim file to minify embedded code.
 
+## Overview
+
+Remove comments and unnecessary blank lines in the css or javascript embedding of your Slim files when embedding them in HTML.
+
+### Example
+
+You have a Slim file like this:
+
+```slim
+html
+  head
+    title My Slim Template
+  body
+    h1 Welcome to Slim!
+    css:
+      /* Slim supports embedded css */
+
+
+      body { background-color: #ddd; }
+    javascript:
+      // Slim supports embedded javascript
+      alert('Slim supports embedded javascript!')
+```
+
+If this gem is not applied, the HTML will look like the following:
+
+```html
+<html>
+  <head>
+    <title>My Slim Template</title>
+  </head>
+  <body>
+    <h1>
+      Welcome to Slim!
+    </h1>
+    <style>
+      /* Slim supports embedded css */
+
+
+      body { background-color: #ddd; }
+    </style>
+    <script>
+      // Slim supports embedded javascript
+      alert('Slim supports embedded javascript!')
+    </script>
+  </body>
+</html>
+```
+
+Applying this gem will remove unnecessary blank lines and comments:
+
+```html
+<html>
+  <head>
+    <title>My Slim Template</title>
+  </head>
+  <body>
+    <h1>
+      Welcome to Slim!
+    </h1>
+    <style>
+      body { background-color: #ddd; }
+    </style>
+    <script>
+      alert('Slim supports embedded javascript!')
+    </script>
+  </body>
+</html>
+```
+
 ## Installation
 
-Just install the slim-embedded-minify gem
+Add this line to your application's Gemfile:
+
+```ruby
+# Gemfile
+gem 'slim'
+gem 'slim-embedded-minify'
+```
+
+And then execute:
 
 ```
-gem install slim-embedded-minify
+bundle install
 ```
 
-or if you use bundler put this in your `Gemfile`
+## Usage
 
-```
+All you have to do is add this gem to your Gemfile.
+No additional configuration or changes to your code are required.
+
+```ruby
+# Gemfile
+gem 'slim'
 gem 'slim-embedded-minify'
 ```
 
