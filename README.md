@@ -1,6 +1,7 @@
 # SlimEmbeddedMinify
 
 [![Gem Version](https://badge.fury.io/rb/slim-embedded-minify.svg)](https://badge.fury.io/rb/slim-embedded-minify)
+[![test](https://github.com/ydah/slim-embedded-minify/actions/workflows/minitest.yml/badge.svg)](https://github.com/ydah/slim-embedded-minify/actions/workflows/minitest.yml)
 
 A slim file to minify embedded code.
 
