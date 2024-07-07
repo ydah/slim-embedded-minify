@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/slim-embedded-minify.svg)](https://badge.fury.io/rb/slim-embedded-minify)
 [![test](https://github.com/ydah/slim-embedded-minify/actions/workflows/minitest.yml/badge.svg)](https://github.com/ydah/slim-embedded-minify/actions/workflows/minitest.yml)
+[![RubyDoc](https://img.shields.io/badge/%F0%9F%93%9ARubyDoc-documentation-informational.svg)](https://www.rubydoc.info/gems/slim-embedded-minify)
 
 A slim file to minify embedded code.
 
