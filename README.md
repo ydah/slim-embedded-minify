@@ -103,6 +103,31 @@ gem 'slim'
 gem 'slim-embedded-minify'
 ```
 
+## Supported Embedded Engines
+
+This gem supports minification for the following Slim embedded engines:
+
+| Engine | Comment Removal | Blank Line Removal |
+|--------|----------------|-------------------|
+| `css:` | `/* */` | ✓ |
+| `javascript:` | `//`, `/* */` | ✓ |
+| `scss:` | `/* */` (after compilation) | ✓ |
+| `sass:` | `/* */` (after compilation) | ✓ |
+| `less:` | `/* */` (after compilation) | ✓ |
+| `coffee:` | `//`, `/* */` (after compilation) | ✓ |
+
+### Note on Compile-time Engines
+
+For `scss:`, `sass:`, `less:`, and `coffee:` engines, the minification is applied
+to the compiled output (CSS or JavaScript), not the source code. This means:
+
+- SCSS/Sass/Less single-line comments (`//`) are already removed during compilation
+- Only CSS-style comments (`/* */`) remain and are removed by this gem
+- CoffeeScript comments become JavaScript comments after compilation and are then removed
+
+These engines require their respective compiler gems to be installed; if a compiler is
+missing, Slim will raise an error when compiling the embedded code.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/ydah/slim-embedded-minify. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/ydah/slim-embedded-minify/blob/main/CODE_OF_CONDUCT.md).

@@ -16,5 +16,9 @@ module Slim
     class JavaScriptEngine < TagEngine
       prepend Minify::Javascript
     end
+
+    class SassEngine
+      prepend Minify::Tag
+    end
   end
 end

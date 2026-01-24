@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.0.0 - 2026-01-24
+
+- Support for SCSS embedded engine minification
+- Support for Sass embedded engine minification
+- Support for Less embedded engine minification
+- Support for CoffeeScript embedded engine minification
+
 ## 0.2.7 - 2023-08-01
 
 - Fix incorrect removing when using escaped quotation for css.

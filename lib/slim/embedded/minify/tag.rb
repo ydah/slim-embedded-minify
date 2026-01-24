@@ -5,8 +5,10 @@ module Slim
     module Minify
       # Minify embedded tag code in Slim templates.
       module Tag
+        CSS_ENGINES = %i[css sass scss less].freeze
+
         def on_slim_embedded(engine, body, attrs)
-          body = minify(body) if engine == :css
+          body = minify(body) if CSS_ENGINES.include?(engine)
           super(engine, body, attrs)
         end
 

@@ -13,4 +13,25 @@ class TestSlim < Minitest::Test
   def assert_html(expected, source, options = {}, &block)
     assert_equal expected, render(source, options, &block)
   end
+
+  def gem_available?(name)
+    Gem::Specification.find_by_name(name)
+    true
+  rescue Gem::LoadError
+    false
+  end
+
+  def sass_available?
+    return true if defined?(::Sass)
+
+    %w[sass-embedded sassc sass].any? { |name| gem_available?(name) }
+  end
+
+  def less_available?
+    gem_available?("less")
+  end
+
+  def coffee_available?
+    gem_available?("coffee-script")
+  end
 end
