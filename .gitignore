@@ -8,3 +8,8 @@
 /tmp/
 /vendor/bundle/
 Gemfile.lock
+/.idea/
+/.vscode/
+*.swp
+*.swo
+/DS_Store
