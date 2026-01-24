@@ -16,6 +16,7 @@ jobs:
           - "3.2"
           - "3.3"
           - "3.4"
+          - "4.0"
           - ruby-head
           - jruby-9.4
     name: "Ruby ${{ matrix.ruby }}: minitest"
